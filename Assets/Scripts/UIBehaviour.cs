@@ -30,7 +30,7 @@ public class UIBehaviour : MonoBehaviour
     
     private void HandleUpdateLaunchPower(float power)
     {
-        Debug.Log($"Update launch power: {power}");
+        // Debug.Log($"Update launch power: {power}");
     }
 
     private void OnDestroy()

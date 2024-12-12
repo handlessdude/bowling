@@ -39,7 +39,7 @@ public class WorldBehaviour : MonoBehaviour
         int obstacleCount = UnityEngine.Random.Range(MIN_OBSTACLES_COUNT, MAX_OBSTACLES_COUNT);
         for (int i = 0; i < obstacleCount; i++)
         {
-            Vector3 position = new Vector3(UnityEngine.Random.Range(-5f, 5f), 4, UnityEngine.Random.Range(10f, 50f));
+            Vector3 position = new Vector3(UnityEngine.Random.Range(-5f, 5f), 4, UnityEngine.Random.Range(14f, 50f));
             Instantiate(obstaclePrefab, position, Quaternion.identity).tag = "Obstacle";
         }
     }

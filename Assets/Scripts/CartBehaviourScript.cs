@@ -18,7 +18,7 @@ public class CartBehaviour : MonoBehaviour
 
     public void Launch(float power)
     {
-        rb.AddForce(Vector3.forward * power, ForceMode.Impulse);
+        rb.AddForce(transform.forward * power, ForceMode.Impulse);
     }
 
     void OnCollisionEnter(Collision collision)
