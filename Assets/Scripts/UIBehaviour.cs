@@ -28,8 +28,8 @@ public class UIBehaviour : MonoBehaviour
     
     private void Start()
     {
-        // scoreText = GameObject.FindGameObjectWithTag("Score")?.GetComponent<TextMeshProUGUI>();
-        // launchPowerSlider = GameObject.FindGameObjectWithTag("LaunchPower")?.GetComponent<Slider>();
+        scoreText = GameObject.FindGameObjectWithTag("Score")?.GetComponent<TextMeshProUGUI>();
+        launchPowerSlider = GameObject.FindGameObjectWithTag("LaunchPower")?.GetComponent<Slider>();
 
         if (scoreText == null)
         {
@@ -88,10 +88,6 @@ public class UIBehaviour : MonoBehaviour
             {
                 scoreText.text = $"Score: {score}";
             }
-        }
-        if (gameObject.CompareTag("Cart"))
-        {
-            Debug.Log($"The cart has entered THE WIN AREA!");
         }
     }
     
