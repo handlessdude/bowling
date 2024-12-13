@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement; 
 
 public class WorldBehaviour : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class WorldBehaviour : MonoBehaviour
     private const int MAX_OBSTACLES_COUNT = 40;
     private const float HEIGHT_ABOVE_TRACK = 2;
         
+    private bool isPaused = false;
+    
     private void Start()
     {
         if (cart != null)
@@ -80,5 +83,28 @@ public class WorldBehaviour : MonoBehaviour
         {
             cart.OnHitObstacle -= HandleHitObstacle;
         }
+    }
+    
+    public void ResetGame()
+    {
+        // закрыть меню
+        // загрузить первую сцену
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    
+    public void ToggleIsPaused()
+    {
+         if (isPaused)
+         {
+             Time.timeScale = 1f;
+             isPaused = false;
+             Debug.Log("Game Resumed");
+             // закрыть меню
+             return;
+         }
+         Time.timeScale = 0f; 
+         isPaused = true;
+         Debug.Log("Game Paused");
+         // открыть меню
     }
 }

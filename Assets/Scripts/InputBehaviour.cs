@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class InputBehaviour : MonoBehaviour
 {
+    public WorldBehaviour world;
+    
     public CartBehaviour cart;
     
     private float launchPower = 0f;
@@ -56,6 +58,19 @@ public class InputBehaviour : MonoBehaviour
     
     private void HandleInput()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            world.ToggleIsPaused();
+            return;
+        }
+        
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            world.ResetGame();
+            return;
+        }
+        
+        
         if (Input.GetMouseButtonDown(0))
         {
             isCharging = true;

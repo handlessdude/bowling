@@ -11,7 +11,7 @@ public class UIBehaviour : MonoBehaviour
     public InputBehaviour input;
     
     public WaterBehaviour water;
-
+    
     public int score = 0;
     
     public TextMeshProUGUI scoreText;
