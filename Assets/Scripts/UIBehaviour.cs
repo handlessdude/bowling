@@ -8,24 +8,33 @@ public class UIBehaviour : MonoBehaviour
 {
     public InputBehaviour input;
     
-    public CartBehaviour cart;
+    public WaterBehaviour water;
 
-    public int hitCount = 0;
+    public int score = 0;
     
     private void Start()
     {
-        if (cart != null)
+        if (input != null)
         {
-            cart.OnHitObstacle += HandleHitObstacle;
             input.OnUpdateLaunchPower += HandleUpdateLaunchPower;
+        }  
+        if (water != null)
+        {
+            water.OnEnterWater += HandleWaterEnter;
         }
     }
 
-    private void HandleHitObstacle(Collision collision)
+    private void HandleWaterEnter(GameObject gameObject)
     {
-        hitCount += 1;
-        
-        Debug.Log($"Hit count: {hitCount}");
+        if (gameObject.CompareTag("Obstacle"))
+        {
+            score += 1;
+            Debug.Log($"Score: {score}");
+        }
+        else if (gameObject.CompareTag("Cart"))
+        {
+            Debug.Log($"The cart has entered the water.");
+        }
     }
     
     private void HandleUpdateLaunchPower(float power)
@@ -35,10 +44,13 @@ public class UIBehaviour : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (cart != null)
+        if (input != null)
         {
-            cart.OnHitObstacle -= HandleHitObstacle;
             input.OnUpdateLaunchPower -= HandleUpdateLaunchPower;
+        }  
+        if (water != null)
+        {
+            water.OnEnterWater -= HandleWaterEnter;
         }
     }
 }

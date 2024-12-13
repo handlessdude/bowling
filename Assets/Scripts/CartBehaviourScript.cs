@@ -9,7 +9,7 @@ public class CartBehaviour : MonoBehaviour
     
     public event Action<Collision> OnHitObstacle; // эмитит гейм обджект с которым столкнулись
     
-    public event Action<Vector3> OnHitWater; // эмитит точку попадания в воду
+    // public event Action<Vector3> OnHitWater; // эмитит точку попадания в воду
     
     void Start()
     {
@@ -29,11 +29,11 @@ public class CartBehaviour : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    /*void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Water"))
         {
             OnHitWater?.Invoke(this.transform.position);
         }
-    }
+    }*/
 }
