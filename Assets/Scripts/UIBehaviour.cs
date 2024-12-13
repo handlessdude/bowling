@@ -17,6 +17,8 @@ public class UIBehaviour : MonoBehaviour
     public InputBehaviour input;
     
     public WaterBehaviour water;
+
+    public WinAreaBehaviour winArea;
     
     public int score = 0;
     
@@ -46,10 +48,13 @@ public class UIBehaviour : MonoBehaviour
         {
             water.OnEnterWater += HandleWaterEnter;
         }
-        
         if (world != null)
         {
             world.OnUpdateIsGamePaused += HandleUpdateIsGamePaused;
+        }
+        if (winArea != null)
+        {
+            winArea.OnEnter += HandleWinAreaEnter;
         }
     }
 
@@ -67,6 +72,14 @@ public class UIBehaviour : MonoBehaviour
     
     private void HandleWaterEnter(GameObject gameObject)
     {
+        if (gameObject.CompareTag("Cart"))
+        {
+            Debug.Log($"The cart has entered the water.");
+        }
+    }
+    
+    private void HandleWinAreaEnter(GameObject gameObject)
+    {
         if (gameObject.CompareTag("Obstacle"))
         {
             score += 1;
@@ -76,9 +89,9 @@ public class UIBehaviour : MonoBehaviour
                 scoreText.text = $"Score: {score}";
             }
         }
-        else if (gameObject.CompareTag("Cart"))
+        if (gameObject.CompareTag("Cart"))
         {
-            Debug.Log($"The cart has entered the water.");
+            Debug.Log($"The cart has entered THE WIN AREA!");
         }
     }
     
@@ -99,6 +112,14 @@ public class UIBehaviour : MonoBehaviour
         if (water != null)
         {
             water.OnEnterWater -= HandleWaterEnter;
+        }
+        if (world != null)
+        {
+            world.OnUpdateIsGamePaused -= HandleUpdateIsGamePaused;
+        }
+        if (winArea != null)
+        {
+            winArea.OnEnter -= HandleWinAreaEnter;
         }
     }
 }
