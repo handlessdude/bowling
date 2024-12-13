@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Water
   - Cart
+  - Obstacle
+  - Score
   layers:
   - Default
   - TransparentFX

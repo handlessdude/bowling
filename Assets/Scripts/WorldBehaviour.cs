@@ -29,7 +29,7 @@ public class WorldBehaviour : MonoBehaviour
 
     private void HandleHitObstacle(Collision collision)
     {
-        Debug.Log($"Collision with: {collision.gameObject.name}");
+        // Debug.Log($"Collision with: {collision.gameObject.name}");
     }
 
     private void SpawnTrackElements()
