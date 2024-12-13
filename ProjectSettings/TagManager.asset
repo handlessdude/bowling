@@ -8,6 +8,7 @@ TagManager:
   - Cart
   - Obstacle
   - Score
+  - LaunchPower
   layers:
   - Default
   - TransparentFX

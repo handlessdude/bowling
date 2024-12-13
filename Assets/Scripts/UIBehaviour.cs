@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 // viewModel для канваса
@@ -15,12 +16,20 @@ public class UIBehaviour : MonoBehaviour
     
     public TextMeshProUGUI scoreText;
     
+    public Slider launchPowerSlider;
+    
     private void Start()
     {
         // scoreText = GameObject.FindGameObjectWithTag("Score")?.GetComponent<TextMeshProUGUI>();
+        // launchPowerSlider = GameObject.FindGameObjectWithTag("LaunchPower")?.GetComponent<Slider>();
+
         if (scoreText == null)
         {
             Debug.LogError("No TextMeshProUGUI element with the tag 'Score' found.");
+        }
+        if (launchPowerSlider == null)
+        {
+            Debug.LogError("No Slider element with the tag 'LaunchPower' found.");
         }
         
         if (input != null)
@@ -38,11 +47,9 @@ public class UIBehaviour : MonoBehaviour
         if (gameObject.CompareTag("Obstacle"))
         {
             score += 1;
-            Debug.Log($"Score: {score}");
            
             if (scoreText != null)
             {
-                // Debug.Log($"Score: {score}");
                 scoreText.text = $"Score: {score}";
             }
         }
@@ -54,7 +61,11 @@ public class UIBehaviour : MonoBehaviour
     
     private void HandleUpdateLaunchPower(float power)
     {
-        // Debug.Log($"Update launch power: {power}");
+        Debug.Log(power);
+        if (launchPowerSlider != null)
+        {
+            launchPowerSlider.value = power;
+        }
     }
 
     private void OnDestroy()

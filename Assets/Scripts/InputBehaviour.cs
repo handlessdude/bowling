@@ -15,6 +15,9 @@ public class InputBehaviour : MonoBehaviour
     private float LAUNCH_POWER_MODIFIER = 100f;
     private float LAUNCH_ANGLE_MODIFIER = 1000f;
     
+    private float MIN_LAUNCH_POWER = 0f;
+    private float MAX_LAUNCH_POWER = 200f;
+    
     private Quaternion initialRotation;
     
     private float launchAngle = 0f; // in degrees
@@ -32,6 +35,25 @@ public class InputBehaviour : MonoBehaviour
         HandleInput();
     }
 
+    private void UpdateLaunchPower()
+    {
+        var newValue = launchPower + Time.deltaTime * LAUNCH_POWER_MODIFIER;
+        launchPower = Mathf.Clamp(newValue, MIN_LAUNCH_POWER, MAX_LAUNCH_POWER);
+        OnUpdateLaunchPower?.Invoke(launchPower);
+    }
+    
+    private void UpdateLaunchAngle()
+    {
+        float mouseDelta = Input.GetAxis("Mouse X") * Time.deltaTime * LAUNCH_ANGLE_MODIFIER;
+        launchAngle = Mathf.Clamp(launchAngle + mouseDelta, -45f, 45f);
+            
+        if (cart != null)
+        {
+            Quaternion rotation = Quaternion.Euler(0, launchAngle, 0);
+            cart.transform.rotation = rotation * initialRotation;
+        }
+    }
+    
     private void HandleInput()
     {
         if (Input.GetMouseButtonDown(0))
@@ -43,19 +65,9 @@ public class InputBehaviour : MonoBehaviour
 
         if (Input.GetMouseButton(0) && isCharging)
         {
-            // launch power
-            launchPower += Time.deltaTime * LAUNCH_POWER_MODIFIER;
-            OnUpdateLaunchPower?.Invoke(launchPower);
+            UpdateLaunchPower();
             
-            // launch angle
-            float mouseDelta = Input.GetAxis("Mouse X") * Time.deltaTime * LAUNCH_ANGLE_MODIFIER;
-            launchAngle = Mathf.Clamp(launchAngle + mouseDelta, -45f, 45f);
-            
-            if (cart != null)
-            {
-                Quaternion rotation = Quaternion.Euler(0, launchAngle, 0);
-                cart.transform.rotation = rotation * initialRotation;
-            }
+            UpdateLaunchAngle();
         }
 
         if (Input.GetMouseButtonUp(0) && isCharging)
