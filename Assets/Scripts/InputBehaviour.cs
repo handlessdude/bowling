@@ -24,7 +24,6 @@ public class InputBehaviour : MonoBehaviour
         if (cart != null)
         {
             initialRotation = cart.transform.rotation;
-            Debug.Log($"initialForwardVector: {cart.transform.forward.ToString()}");
         }
     }
     
@@ -51,8 +50,6 @@ public class InputBehaviour : MonoBehaviour
             // launch angle
             float mouseDelta = Input.GetAxis("Mouse X") * Time.deltaTime * LAUNCH_ANGLE_MODIFIER;
             launchAngle = Mathf.Clamp(launchAngle + mouseDelta, -45f, 45f);
-            
-            Debug.Log($"Update launchAngle: {launchAngle} | forward: {cart.transform.forward.ToString()}");
             
             if (cart != null)
             {
