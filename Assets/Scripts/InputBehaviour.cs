@@ -61,15 +61,12 @@ public class InputBehaviour : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             world.ToggleIsPaused();
-            return;
         }
-        
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             world.ResetGame();
-            return;
         }
-        
         
         if (Input.GetMouseButtonDown(0))
         {

@@ -8,6 +8,12 @@ using TMPro;
 // viewModel для канваса
 public class UIBehaviour : MonoBehaviour
 {
+    public Canvas gameStateCanvas;
+    
+    public Canvas menuCanvas;
+
+    public WorldBehaviour world;
+        
     public InputBehaviour input;
     
     public WaterBehaviour water;
@@ -40,8 +46,25 @@ public class UIBehaviour : MonoBehaviour
         {
             water.OnEnterWater += HandleWaterEnter;
         }
+        
+        if (world != null)
+        {
+            world.OnUpdateIsGamePaused += HandleUpdateIsGamePaused;
+        }
     }
 
+    private void HandleUpdateIsGamePaused(bool isPaused)
+    {
+        if (isPaused)
+        {
+            menuCanvas.gameObject.SetActive(true);
+            gameStateCanvas.gameObject.SetActive(false);
+            return;
+        }
+        menuCanvas.gameObject.SetActive(false);
+        gameStateCanvas.gameObject.SetActive(true);
+    }
+    
     private void HandleWaterEnter(GameObject gameObject)
     {
         if (gameObject.CompareTag("Obstacle"))
@@ -61,7 +84,6 @@ public class UIBehaviour : MonoBehaviour
     
     private void HandleUpdateLaunchPower(float power)
     {
-        Debug.Log(power);
         if (launchPowerSlider != null)
         {
             launchPowerSlider.value = power;

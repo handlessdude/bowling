@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class WorldBehaviour : MonoBehaviour
 {
+    public event Action<bool> OnUpdateIsGamePaused;
+    
     public CartBehaviour cart;
 
     public GameObject obstaclePrefab;
@@ -87,24 +89,44 @@ public class WorldBehaviour : MonoBehaviour
     
     public void ResetGame()
     {
-        // закрыть меню
-        // загрузить первую сцену
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        ResumeGame();
     }
     
     public void ToggleIsPaused()
     {
          if (isPaused)
          {
-             Time.timeScale = 1f;
-             isPaused = false;
-             Debug.Log("Game Resumed");
-             // закрыть меню
+             ResumeGame();
              return;
          }
-         Time.timeScale = 0f; 
-         isPaused = true;
-         Debug.Log("Game Paused");
-         // открыть меню
+         PauseGame();
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        isPaused = false;
+        Debug.Log("Game Resumed");
+         OnUpdateIsGamePaused?.Invoke(isPaused);
+    }
+    
+    public void PauseGame()
+    {
+        Time.timeScale = 0f; 
+        isPaused = true;
+        Debug.Log("Game Paused");
+        OnUpdateIsGamePaused?.Invoke(isPaused);
+    }
+    
+    public void ExitGame()
+    {
+        Debug.Log("Exiting game...");
+        
+        Application.Quit();
+        
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 }

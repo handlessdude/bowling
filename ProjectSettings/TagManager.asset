@@ -9,6 +9,8 @@ TagManager:
   - Obstacle
   - Score
   - LaunchPower
+  - MenuCanvas
+  - GameStateCanvas
   layers:
   - Default
   - TransparentFX
